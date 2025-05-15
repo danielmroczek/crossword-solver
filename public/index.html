@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#ffffff"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#11191f"
+    />
+    <title>Wyszukiwarka Słów Krzyżówkowych</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <article class=" overflow-auto">
+        <header>
+          <h2>Znajdź pasujące słowa</h2>
+          <p>
+            Wpisz litery w pola poniżej. Użyj spacji lub "?" dla nieznanych liter.
+          </p>
+        </header>
+        
+
+        <fieldset >
+          <div id="letters-container" class="letters-container"></div>
+          <div id="word-length-display">
+            Długość: <strong>5</strong>
+          </div>
+        </fieldset>
+
+        <footer class="grid">
+          
+          <button id="decrease-btn" class="secondary">- Usuń pole</button>
+          <button id="increase-btn" class="secondary">+ Dodaj pole</button>
+          <button id="search-btn">Szukaj</button>
+        </footer>
+      </article>
+
+      <article id="results-container" aria-busy="false">
+        <header>
+          <h2>Wyniki</h2>
+        </header>
+        
+        <p id="results-status">Tutaj pojawią się znalezione słowa.</p>
+        <div id="results-list"></div>
+      </article>
+    </main>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
