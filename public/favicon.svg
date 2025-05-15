@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="a" x1="0" x2="100%" y1="0" y2="100%">
+      <stop offset="0%" stop-color="#673AB7" />
+      <stop offset="100%" stop-color="#3F51B5" />
+    </linearGradient>
+    <style>
+      .cell {
+        stroke: #fff;
+        stroke-width: 1;
+        stroke-dasharray: none;
+        stroke-opacity: 1;
+      }
+      .filled {
+        fill: #fff;
+        fill-opacity: 1;
+      }
+      .empty {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <rect width="32" height="32" fill="url(#a)" rx="4" />
+  <path d="M6.5 6.5h6.333v6.333H6.5z" class="cell filled" />
+  <path d="M12.833 6.5h6.333v6.333h-6.333zM19.167 6.5H25.5v6.333h-6.333zM19.167 12.833H25.5v6.333h-6.333z" class="cell empty" />
+  <path d="M12.833 12.833h6.333v6.333h-6.333z" class="cell filled" />
+  <path d="M6.5 12.833h6.333v6.333H6.5zM6.5 19.167h6.333V25.5H6.5z" class="cell empty" />
+  <path d="M12.833 19.167h6.333V25.5h-6.333z" class="cell filled" />
+  <path d="M19.167 19.167H25.5V25.5h-6.333z" class="cell empty" />
+</svg>
