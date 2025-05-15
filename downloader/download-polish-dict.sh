@@ -3,7 +3,10 @@
 # URL of the Polish dictionary package from Debian
 DEB_URL="http://ftp.pl.debian.org/debian/pool/main/i/ipolish/wpolish_20240901-1_all.deb"
 DEB_FILE="wpolish.deb"
-OUTPUT_FILE="polish.txt"
+# Define output path relative to script location
+SCRIPT_DIR="$(dirname "$0")"
+OUTPUT_DIR="${SCRIPT_DIR}/../public/dict"
+OUTPUT_FILE="${OUTPUT_DIR}/polish.txt"
 
 # Set to true to enable cleanup, false to disable
 ENABLE_CLEANUP=true
@@ -30,6 +33,8 @@ tar -xf "$DATA_TAR_FILE" -C "$EXTRACT_DIR"
 # Find and copy the dictionary file
 DICT_PATH="$EXTRACT_DIR/usr/share/dict/polish"
 if [ -f "$DICT_PATH" ]; then
+    # Create output directory if it doesn't exist
+    mkdir -p "$OUTPUT_DIR"
     cp "$DICT_PATH" "$OUTPUT_FILE"
     echo "Polish dictionary extracted to: $OUTPUT_FILE"
 else
