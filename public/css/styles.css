@@ -4,7 +4,6 @@
 :root {
   --gap: .5rem;
   --big--font-size: 1.5rem;
-  --pico-typography-spacing-vertical: 0.5rem;
 }
 
 .letters-container {
@@ -23,6 +22,7 @@ input.letter-input {
   margin-bottom: 0;
   aspect-ratio: 1 / 1;
   max-width: 3rem;
+  min-width: 2rem;
   text-align: center;
   text-transform: uppercase;
   font-size: var(--big--font-size);
@@ -30,6 +30,19 @@ input.letter-input {
   border-width: calc(var(--pico-border-width) * 2);
 }
 
+.letter-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+}
+
+.letter-index {
+  font-size: 0.75rem;
+  color: var(--pico-color-slate-500);
+  user-select: none;
+}
 
 .controls {  
   display: flex;
@@ -47,14 +60,10 @@ input.letter-input {
     padding-left: 2rem;
     padding-right: 2rem;
   }
-
-  $ input {
-    width: 2rem;
-  }
 }
 
 #word-length-input {
-  width: auto;
+  width: 5rem;
   /* text-align: center; */
   font-size: var(--big--font-size);
 }
@@ -95,6 +104,6 @@ input.letter-input {
 @media (prefers-color-scheme: dark) {
   input.letter-input {
     /* background-color: var(--pico-color-slate-800); */
-    border-color: var(--pico-color-slate-500);
+    border-color: var(--pico-color-slate-400);
   }
 }

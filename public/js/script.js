@@ -34,6 +34,16 @@ function initializeLetterInputs(preserveLetters = false) {
   container.innerHTML = '';
   
   for (let i = 0; i < wordLength; i++) {
+    // Create a wrapper for index and input
+    const wrapper = document.createElement('div');
+    wrapper.className = 'letter-input-wrapper';
+
+    // Subtle index number (1-based)
+    const indexSpan = document.createElement('span');
+    indexSpan.className = 'letter-index';
+    indexSpan.textContent = i + 1;
+    wrapper.appendChild(indexSpan);
+
     const input = document.createElement('input');
     input.type = 'text';
     input.maxLength = 1;
@@ -45,7 +55,8 @@ function initializeLetterInputs(preserveLetters = false) {
       input.value = currentLetters[i];
     }
     
-    container.appendChild(input);
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
   }
   
   // Add event listeners for easy navigation between boxes
