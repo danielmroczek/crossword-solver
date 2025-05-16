@@ -1,25 +1,45 @@
 @import url('https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css');
 
+:root {
+  --gap: .5rem;
+  --big--font-size: 1.5rem;
+}
+
 .letters-container {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--gap);
   flex-wrap: nowrap;
   flex-direction: row;
+  justify-content: center;
   overflow-x: auto;
+  padding: var(--pico-border-width);
 }
 
 .letter-input {
+  width: auto;
   text-align: center;
   text-transform: uppercase;
-  font-size: 1.5rem;
+  font-size: var(--big--font-size);
   aspect-ratio: 1/1;
 }
 
-.row {  
+.controls {  
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  gap: var(--gap);
+
+  & * {
+    margin-bottom: 0 !important;
+  }
+}
+
+#word-length-input {
+  width: auto;
+  /* text-align: center; */
+  font-size: var(--big--font-size);
 }
 
 #results-list {
@@ -28,12 +48,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 0.5rem 1.5rem;
-  overflow-y: visible;
-  overflow-x: auto;
-}
 
-#results-list div {
-  padding: 0.25rem 0;
+  &> div {
+    padding: 0.25rem 0;
+  }
 }
 
 /* Responsive adjustments */

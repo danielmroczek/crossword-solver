@@ -20,7 +20,7 @@
   </head>
   <body>
     <main class="container">
-      <article class=" overflow-auto">
+      <article class=" ">
         <header>
           <h2>Znajdź pasujące słowa</h2>
           <p>
@@ -29,22 +29,32 @@
         </header>
         
 
-        <fieldset >
-          <div id="letters-container" class="letters-container"></div>
-          <div id="word-length-display">
-            Długość: <strong>5</strong>
-          </div>
-        </fieldset>
+          <div id="letters-container" class="letters-container overflow-auto">
 
-        <footer class="grid">
+          </div>
+
+        <footer class="controls">
+          <div class="controls">
+            <label for="word-length-input">
+              Długość słowa:
+            </label>
+            <input
+              type="number"
+              id="word-length-input"
+              min="1"
+              max="20" 
+              value="5"
+              aria-label="Długość słowa"
+            />
+          </div>
+            
+            
           
-          <button id="decrease-btn" class="secondary">- Usuń pole</button>
-          <button id="increase-btn" class="secondary">+ Dodaj pole</button>
-          <button id="search-btn">Szukaj</button>
+          <button id="search-btn" class="right">Szukaj</button>
         </footer>
       </article>
 
-      <article id="results-container" aria-busy="false">
+      <article id="results-container" aria-busy="false" hidden>
         <header>
           <h2>Wyniki</h2>
         </header>

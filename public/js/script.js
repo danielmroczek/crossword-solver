@@ -1,14 +1,19 @@
 // Default word length
 let wordLength = 5;
+// Default max length (will be updated after dictionary loads)
+let maxWordLength = 20;
 
 // Store the current letters
 let currentLetters = [];
 
 // Update word length display
-function updateWordLengthDisplay() {
-  const display = document.getElementById('word-length-display');
-  if (display) {
-    display.querySelector('strong').textContent = wordLength;
+function updateWordLengthDisplay() { 
+  // Keep the input in sync with wordLength
+  const input = document.getElementById('word-length-input');
+  if (input) {
+    input.value = wordLength;
+    // Also ensure max attribute is set to maxWordLength
+    input.setAttribute('max', maxWordLength);
   }
 }
 
@@ -134,15 +139,26 @@ function decreaseWordLength(preserveLetters = false) {
 }
 
 // Add event listeners
-document.getElementById('increase-btn').addEventListener('click', (e) => {
+document.getElementById('word-length-input').addEventListener('change', (e) => {
   e.preventDefault();
-  increaseWordLength(true);
+  const newLength = parseInt(e.target.value);
+  
+  if (newLength && newLength >= 1 && newLength <= maxWordLength) {
+    wordLength = newLength;
+    updateWordLengthDisplay();
+    initializeLetterInputs(true);
+  } else {
+    // Reset to current wordLength if invalid input
+    e.target.value = wordLength;
+  }
 });
 
-document.getElementById('decrease-btn').addEventListener('click', (e) => {
-  e.preventDefault();
-  decreaseWordLength(true);
-});
+// Select all contents on focus or click for easier editing
+const wordLengthInput = document.getElementById('word-length-input');
+if (wordLengthInput) {
+  wordLengthInput.addEventListener('focus', e => e.target.select());
+  wordLengthInput.addEventListener('click', e => e.target.select());
+}
 
 document.getElementById('search-btn').addEventListener('click', (e) => {
   e.preventDefault();
@@ -160,7 +176,18 @@ async function loadDictionary() {
     }
     const text = await response.text();
     polishWords = text.split('\n').map(word => word.trim().toLowerCase());
-    console.log(`Loaded ${polishWords.length} Polish words`);
+    
+    // Find the maximum word length in the dictionary
+    maxWordLength = polishWords.reduce((max, word) => 
+      Math.max(max, word.length), 0);
+    
+    // Update the input's max attribute
+    const input = document.getElementById('word-length-input');
+    if (input) {
+      input.setAttribute('max', maxWordLength);
+    }
+    
+    console.log(`Loaded ${polishWords.length} Polish words. Maximum word length: ${maxWordLength}`);
   } catch (error) {
     console.error('Error loading dictionary:', error);
     document.getElementById('results-status').textContent = 
@@ -171,6 +198,8 @@ async function loadDictionary() {
 function searchWords() {
   const resultsContainer = document.getElementById('results-container');
   resultsContainer.setAttribute('aria-busy', 'true');
+  // Show results container if hidden
+  resultsContainer.hidden = false;
   
   const inputs = document.querySelectorAll('.letter-input');
   const pattern = Array.from(inputs).map(input => {
@@ -192,11 +221,21 @@ function searchWords() {
   const resultsList = document.getElementById('results-list');
   
   if (matchingWords.length > 0) {
-    // Update status with count
-    resultsStatus.textContent = `Znaleziono ${matchingWords.length} pasujących słów:`;
+    let shownWords = matchingWords;
+    let infoMsg = '';
+    if (matchingWords.length > 1000) {
+      // Shuffle and pick 1000 random words
+      shownWords = matchingWords
+        .map(word => ({ word, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .slice(0, 1000)
+        .map(obj => obj.word);
+      infoMsg = ` (pokazano losowe 1000 z ${matchingWords.length})`;
+    }
+    resultsStatus.textContent = `Znaleziono ${matchingWords.length} pasujących słów${infoMsg}:`;
     
     // Sort words alphabetically for better organization
-    const sortedWords = [...matchingWords].sort((a, b) => a.localeCompare(b, 'pl'));
+    const sortedWords = [...shownWords].sort((a, b) => a.localeCompare(b, 'pl'));
     
     // Create HTML elements: each word is a clickable link
     resultsList.innerHTML = sortedWords.map(word => 
