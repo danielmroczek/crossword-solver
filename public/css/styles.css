@@ -1,8 +1,10 @@
 @import url('https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css');
+@import url('https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.css');
 
 :root {
   --gap: .5rem;
   --big--font-size: 1.5rem;
+  --pico-typography-spacing-vertical: 0.5rem;
 }
 
 .letters-container {
@@ -12,16 +14,22 @@
   flex-direction: row;
   justify-content: center;
   overflow-x: auto;
+
   padding: var(--pico-border-width);
 }
 
-.letter-input {
-  width: auto;
+input.letter-input {
+  padding: 0;
+  margin-bottom: 0;
+  aspect-ratio: 1 / 1;
+  max-width: 3rem;
   text-align: center;
   text-transform: uppercase;
   font-size: var(--big--font-size);
-  aspect-ratio: 1/1;
+  border-radius: 0;
+  border-width: calc(var(--pico-border-width) * 2);
 }
+
 
 .controls {  
   display: flex;
@@ -33,6 +41,15 @@
 
   & * {
     margin-bottom: 0 !important;
+  }
+
+  & > button {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  $ input {
+    width: 2rem;
   }
 }
 
@@ -65,5 +82,19 @@
 @media (min-width: 992px) {
   #results-list {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  input.letter-input {
+    border-color: var(--pico-color-slate-950);
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  input.letter-input {
+    /* background-color: var(--pico-color-slate-800); */
+    border-color: var(--pico-color-slate-500);
   }
 }
